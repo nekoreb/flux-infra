@@ -22,7 +22,7 @@ const getProjectStatus = () => ({
 
 async function main() {
   let project = getProjectStatus(); // 初始状态
-  UI.header("Flux-Engine 通用工程化初始化系统 v3.0 (Fixed & Enhanced)");
+  UI.header("Flux-Engine 工程化初始化系统");
 
   // 1. 基础 Git 环境确保
   if (!project.isGit) {
@@ -38,7 +38,7 @@ async function main() {
   };
 
   // 3. 并行化工具链部署 (极致性能)
-  UI.info("并行安装全栈工具链 (Node + Rust)...");
+  UI.info("安装全栈工具链 (Node + Rust)...");
   const tasks: Promise<any>[] = [];
 
   // 任务 A: Node 组件 (Lefthook, Commitlint)
@@ -56,7 +56,7 @@ async function main() {
 
   try {
     await Promise.all(tasks);
-    UI.success("工具链并行部署完成");
+    UI.success("工具链部署完成");
   } catch (e) {
     UI.error("安装过程中发生错误，请检查网络环境。");
     throw e;
@@ -90,7 +90,6 @@ async function main() {
   if (!existsSync("scripts")) mkdirSync("scripts");
   const templateContent = await fetchAITemplate();
   await Bun.write("scripts/ai-commit.ts", templateContent);
-  UI.success("AI Commit 脚本已热更新并部署至本地 scripts/ 目录");
 
   // 4.4 注入指令
   if (project.isNode) {
@@ -252,14 +251,14 @@ async function fetchAITemplate(): Promise<string> {
       return content;
     }
   } catch (err) {
-    UI.error("远程同步失败，尝试加载本地缓存...");
+    UI.warn("远程同步失败，尝试加载本地缓存...");
   }
 
   // 2. 兜底逻辑：读取上一次成功的缓存
   if (existsSync(LOCAL_CACHE_PATH)) {
     return await Bun.file(LOCAL_CACHE_PATH).text();
   }
-  UI.error("未发现本地缓存...");
+  UI.warn("未发现本地缓存...");
 
   // 3. 本地文件
   const templatePath = join("/Users/nekorebel/Workspace/Infra/GitOps/flux-infra/", "templates", "ai-commit.template.ts");
@@ -268,6 +267,8 @@ async function fetchAITemplate(): Promise<string> {
     UI.info("使用本地文件...");
     return await Bun.file(templatePath).text();
   }
+
+  UI.error("AI 辅助提交不可用...");
 
   // 4. 最终兜底：硬编码一个极简版，防止初始化崩溃
   return `console.error("Template not found. Please check network.");`;
