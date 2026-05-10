@@ -181,7 +181,7 @@ function generateLefthookStable(project: ReturnType<typeof getProjectStatus>): s
 
   const cmds = config["pre-commit"].commands;
 
-  // 2. 动态按需挂载 (现在使用的是传入的 project 参数)
+  // 2. 动态按需挂载
   if (project.isRust) {
     cmds["rust-fmt"] = { glob: "*.rs", run: "cargo fmt -- {staged_files}" };
     cmds["rust-clippy"] = { run: "cargo clippy -- -D warnings" };
