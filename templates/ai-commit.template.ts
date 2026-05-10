@@ -110,7 +110,7 @@ async function main() {
       const exitCode = await proc.exited;
 
       if (exitCode === 0) {
-        console.log("\x1b[32m✅ 变更已锁定并存入高可用架构库\x1b[0m");
+        console.log("\x1b[32m✅ 变更已提交\x1b[0m");
       } else {
         throw new Error(`Git 退出状态码: ${exitCode}`);
       }
