@@ -1,7 +1,7 @@
 import { $ } from "bun";
 
 async function main() {
-  console.log("🤖 \x1b[36mFlux-AI 正在分析架构变更...\x1b[0m");
+  console.log("🤖 \x1b[36m AI 正在分析代码变更...\x1b[0m");
 
   // 1. 智能 Diff 提取 (排除机器生成的噪音文件，节约 LLM Token 且提高精度)
   const diffProc = await $`git diff --cached -- ":(exclude)Cargo.lock" ":(exclude)package-lock.json" ":(exclude)*.svg"`.quiet();
