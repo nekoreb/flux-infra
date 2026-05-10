@@ -90,6 +90,7 @@ async function main() {
       // 在执行 spawn 之前检测是否存在 HEAD
       const isInitialCommit = (await $`git rev-parse HEAD`.quiet().nothrow().exitCode) !== 0;
       console.log(`\x1b[36m[DEBUG] 当前分支是否有提交历史: ${isInitialCommit ? "没有 (首次提交)" : "有"}\x1b[0m`);
+      console.log(`\x1b[36m[DEBUG] 检测码: ${await $`git rev-parse HEAD`.quiet().nothrow().exitCode}\x1b[0m`);
 
       const commitArgs = ["git", "commit", "-m", aiSuggestion];
       if (isInitialCommit) {
