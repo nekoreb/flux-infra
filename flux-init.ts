@@ -261,7 +261,7 @@ async function fetchAITemplate(): Promise<string> {
   UI.warn("未发现本地缓存...");
 
   // 3. 本地文件
-  const templatePath = join("/Users/nekorebel/Workspace/Infra/GitOps/flux-infra/", "templates", "ai-commit.template.ts");
+  const templatePath = join("/Users/nekorebel/Workspace/02_Platform/fleet/flux-infra/", "templates", "ai-commit.template.ts");
 
   if (existsSync(templatePath)) {
     UI.info("使用本地文件...");
